@@ -35,6 +35,10 @@ ul {
 li {
   float: left;
 }
+#reset{
+  margin-left: 120%;
+  color:white
+}
 
 .equal{
   color:white;
@@ -63,14 +67,15 @@ select{
   background-color: white;
   height: 500px;
 }
-button{
-  height: 86px;
-  width: 135px;
-  font-size: 20px;
-}
 
-#button{
-  font-size: 20px;
+button{
+    margin-top: 4%;
+    margin-left: 41%;
+    background-color: red;
+    color: white;
+    width: 95px;
+    height: 48px;
+    border-radius: 10px;
 }
 
 h1{

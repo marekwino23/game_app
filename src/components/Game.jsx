@@ -1,4 +1,5 @@
 import React,{useEffect, useState} from 'react';
+import cogoToast from 'cogo-toast';
 
 const endOfGame = (board, player) => {
     if(board[0] === player && board[1] === player && board[2] === player){
@@ -31,7 +32,11 @@ const endOfGame = (board, player) => {
 
 const Game = () => {
     const [board, setBoard] = useState(['','','','','','','','','']);
-    const [player, setPlayer] = useState('O'); 
+    const [player, setPlayer] = useState('X'); 
+
+    const onReset = () =>{
+        setBoard(['','','','','','','','',''])
+    }
 
     const onClick = (index) => {
         if(board[index]) return;
@@ -41,10 +46,8 @@ const Game = () => {
             nextMove = 'O';
         }
         else {
-            console.log(nextMove)
             nextMove = 'X';
         }
-        console.log(board)
         setPlayer(nextMove);
         board[index] = nextMove;
         setBoard([...board]);
@@ -54,17 +57,19 @@ const Game = () => {
     useEffect(() => {
         const isEndOfGame = endOfGame(board, player);
         if(isEndOfGame) {
-            alert("player" + player  + "-" + "win this game")
+            cogoToast.success("player" + player  +  "-" + "win")
             setBoard(['','','','','','','','',''])
         }
     }, [board, player]);
 
 
     return(
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <div data-testid="board" style={{ display: 'flex', flexWrap: 'wrap' }}>
             {board.map((el, index) => (
-              <div key={index} style={{ backgroundColor: 'white', flexBasis: '25%', height: '30px', border: '1px solid black', color: 'black' }} onClick={() => onClick(index)}>{el}</div>  
+              <div data-testid="cel" key={index} style={{ backgroundColor: 'white', flexBasis: '25%', height: '30px', border: '2px solid black', color: 'red' }} onClick={() => onClick(index)}>{el}</div>  
             ))}
+            <button onClick={onReset}>New game</button> 
+            <p style={{marginLeft:"89px", fontWeight:"bold"}}>Next player: {player}</p>
         </div>
     )
 }
